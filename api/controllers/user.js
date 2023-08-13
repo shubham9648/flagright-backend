@@ -53,49 +53,6 @@ exports.registerUser = async (req, res, next) => {
     }
 };
 
-exports.search = async (req, res, next) => {
-    try {
-
-        const reqQuery = req.query;
-
-        const pagination = { skip: 0, limit: 30 };
-
-        if (reqQuery.pageNo && reqQuery.pageSize) {
-            pagination.skip = parseInt((reqQuery.pageNo - 1) * reqQuery.pageSize);
-            pagination.limit = parseInt(reqQuery.pageSize);
-        }
-
-        const filter = {};
-        let sort = { };
-
-        // To handle sorting queries
-        if (reqQuery.createdAt)  sort ['createdAt'] = Number(reqQuery.createdAt) 
-                
-        if (reqQuery.updatedAt)  sort ['updatedAt'] = Number(reqQuery.updatedAt) 
-
-        if (reqQuery.alphabetical) sort ['name'] = Number(reqQuery.alphabetical);
-
-        if(reqQuery.email) filter['email'] = { $regex: reqQuery.email, $options: 'i' };
-
-        if(reqQuery.phone) filter['phone'] = { $regex: reqQuery.phone, $options: 'i' };
-
-        if(reqQuery.fullName) filter['fullName'] = { $regex: reqQuery.fullName, $options: 'i' };
-
-        if(reqQuery.role) filter["roles"] = {$regex: reqQuery.role, $options: 'i'}
-
-        if(reqQuery.id) filter['_id'] = { $in: reqQuery.id.split(',').map(el => ObjectId(el)) };
-
-        const query = queries.search(filter, pagination, sort);
-
-        const data = await service.search(query);
-
-        responseHandler(data, res);
-    } catch (err) {
-        console.log("error is ", err);
-        next(err);
-    }
-};
-
 exports.getUser = async (req, res, next) => {
     try {
 

@@ -1,14 +1,8 @@
-const model = require("../models/transaction");
-const dal = require("../helpers/dal");
-const helper = require("../helpers/generateId");
-const { ObjectId } = require("mongodb")
-
+const model = require("../../models/master/currency");
+const dal = require("../../helpers/dal");
+const { ObjectId } = require("mongodb");
 
 exports.create = async (body) => {
-    let count = await dal.find(model, {}, { limit: 1 }, { createdAt: -1 }, { srNo: 1 });
-    let srNo = count[0]?.srNo + 1 || 1;
-    body.srNo = srNo
-    body.ID = helper.generateID("TRAN", srNo);
     return await dal.create(model, body);
 };
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { verifyToken } = require('../../middleware/auth'); // Auth Verification
-const validate = require('../../middleware/validator'); // Validator
+const { verifyToken } = require('../../../middleware/auth'); // Auth Verification
+const validate = require('../../../middleware/validator'); // Validator
 
 
 const {
@@ -9,23 +9,23 @@ const {
     getList,
     update,
     deleteOne
-} = require('../controllers/transaction');
+} = require('../../controllers/master/currency');
 
 const {
     createSchema,
     updateSchema
-} = require("../validators/transaction");
+} = require("../../validators/master/currency");
 
-//create ..
+// create
 router.route('/').post(verifyToken, validate(createSchema), create);
 
-// Search and List
+// Listing and search
 router.route('/').get(verifyToken, getList);
 
-// Update
+// Update..
 router.route('/:id').put(verifyToken, validate(updateSchema), update);
 
-// Delete
+// Delete ..
 router.route('/:id').delete(verifyToken, deleteOne);
 
 
