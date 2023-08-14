@@ -1,32 +1,26 @@
 exports.search = (filter, pagination, sort) => {
     console.log("pagination is", pagination);
 
-    let originSearch;
-    if (filter['originName']) {
-        originSearch = {
+
+
+    let search = {};
+    if (filter['search']) {
+        search = {
             $or: [{
-                'originPaymentDetails.nameOnCard.firstName': { $regex: filter['originName'], $options: 'i' }
+                'originUser.fullName': { $regex: filter['search'], $options: 'i' }
             }, {
-                'originPaymentDetails.nameOnCard.middleName': { $regex: filter['originName'], $options: 'i' }
+                'destinationUser.fullName': { $regex: filter['search'], $options: 'i' }
             }, {
-                'originPaymentDetails.nameOnCard.lastName': { $regex: filter['originName'], $options: 'i' }
+                'originAmountDetails.currency.name': { $regex: filter['search'], $options: 'i' }
+            }, {
+                'destinationAmountDetails.currency.name': { $regex: filter['search'], $options: 'i' }
             }]
         }
-        delete filter['originName'];
+        delete filter['search'];
     }
 
-    let destinationSearch;
-    if (filter['destinationName']) {
-        destinationSearch = {
-            $or: [{
-                'destinationPaymentDetails.nameOnCard.firstName': { $regex: filter['destinationName'], $options: 'i' }
-            }, {
-                'destinationPaymentDetails.nameOnCard.middleName': { $regex: filter['destinationName'], $options: 'i' }
-            }, {
-                'destinationPaymentDetails.nameOnCard.lastName': { $regex: filter['destinationName'], $options: 'i' }
-            }]
-        }
-        delete filter['destinationName'];
+    if (Object.keys(sort).length === 0) {
+        sort = { createdAt: -1 }
     }
 
     const baseQuery = [{
@@ -34,6 +28,9 @@ exports.search = (filter, pagination, sort) => {
             ...filter,
             active: true
         }
+    },
+    {
+        $sort: sort
     }];
 
     const dataQuery = [
@@ -116,48 +113,9 @@ exports.search = (filter, pagination, sort) => {
                 'path': '$destinationAmountDetails.currency',
                 'preserveNullAndEmptyArrays': true
             }
-        }, {
-            '$lookup': {
-                'from': 'mastercurrencies',
-                'localField': 'destinationPaymentDetails.cardIssuedCountry',
-                'foreignField': '_id',
-                'pipeline': [
-                    {
-                        '$project': {
-                            'country': 1
-                        }
-                    }
-                ],
-                'as': 'destinationPaymentDetails.cardIssuedCountry'
-            }
-        }, {
-            '$unwind': {
-                'path': '$destinationPaymentDetails.cardIssuedCountry',
-                'preserveNullAndEmptyArrays': true
-            }
-        }, {
-            '$lookup': {
-                'from': 'mastercurrencies',
-                'localField': 'originPaymentDetails.cardIssuedCountry',
-                'foreignField': '_id',
-                'pipeline': [
-                    {
-                        '$project': {
-                            'country': 1
-                        }
-                    }
-                ],
-                'as': 'originPaymentDetails.cardIssuedCountry'
-            }
-        }, {
-            '$unwind': {
-                'path': '$originPaymentDetails.cardIssuedCountry',
-                'preserveNullAndEmptyArrays': true
-            }
-        },
-        {
-            $sort: sort
-        }, {
+        },{
+            $match: search
+        },{
             $skip: pagination?.skip
         }, {
             $limit: pagination?.limit
@@ -167,22 +125,12 @@ exports.search = (filter, pagination, sort) => {
     const countQuery = [
         ...baseQuery,
         {
+            $match: search
+        },
+        {
             $count: 'count'
         }];
 
-    if (originSearch) {
-        dataQuery.push({
-            $match: originSearch
-        });
-        countQuery[0]['$match'] = { ...baseQuery[0]['$match'], ...originSearch }
-    };
-
-    if (destinationSearch) {
-        dataQuery.push({
-            $match: destinationSearch
-        });
-        countQuery[0]['$match'] = { ...baseQuery[0]['$match'], ...destinationSearch }
-    };
 
     return [{
         $facet: {

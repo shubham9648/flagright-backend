@@ -2,7 +2,7 @@ const model = require("../models/transaction");
 const dal = require("../helpers/dal");
 const helper = require("../helpers/generateId");
 const { ObjectId } = require("mongodb")
-
+const userModel = require("../models/users");
 
 exports.create = async (body) => {
     let count = await dal.find(model, {}, { limit: 1 }, { createdAt: -1 }, { srNo: 1 });
@@ -28,3 +28,7 @@ exports.update = async (filter, body) => {
 exports.delete = async (id) => {
     return await dal.findOneAndUpdate(model, {_id: id}, {active: false});
 };
+
+exports.aggregate = async (query) => await dal.aggregate(model, query);
+
+exports.findUser = async () => await dal.find(userModel, {}, {skip: 0, limit: 30}, { createdAt: -1}, {fullName: 1});

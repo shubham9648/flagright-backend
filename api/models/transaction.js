@@ -100,8 +100,6 @@ const transactionSchema = Schema({
     },
     originAmountDetails: amountDetailSchema,
     destinationAmountDetails: amountDetailSchema,
-    originPaymentDetails: paymentDetails,
-    destinationPaymentDetails: paymentDetails,
     productType: {
         type: String
     },

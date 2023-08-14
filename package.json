@@ -24,6 +24,7 @@
     "moment": "^2.29.4",
     "mongodb": "^5.7.0",
     "mongoose": "^6.0.10",
+    "node-cron": "^3.0.2",
     "nodemon": "^2.0.19"
   }
 }
