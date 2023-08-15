@@ -5,7 +5,7 @@ module.exports.convertToCsv = async (headerArr, jsonArr, file) => {
     return new Promise((resolve, reject) => {
         try {
             const absolutePath = path.resolve(__dirname, '../..'); 
-            console.log("absolutePath 1 is ", absolutePath);
+            console.log("absolutePath 1 is ", absolutePath, __dirname);
             const csvWriter = createCsvWriter({
                 path: `${absolutePath}/uploads/${file}`,
                 header: headerArr
