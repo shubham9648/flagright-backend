@@ -21,7 +21,7 @@ module.exports.default = (app) => {
 
   // masters ..
   app.use('/api/v1/master/currency', masterCurrency);
-
+  app.use("/uploads",express.static('uploads'));
 
   app.use(useErrorHandler);
 }

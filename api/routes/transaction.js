@@ -10,6 +10,7 @@ const {
     startCronJob,
     stopCronJob,
     analytics,
+    getTransactionCsv,
     update,
     deleteOne
 } = require('../controllers/transaction');
@@ -27,6 +28,7 @@ router.route('/').get(verifyToken, getList);
 router.route('/analytics').get(verifyToken, analytics);
 router.route('/startCron').get(verifyToken, startCronJob);
 router.route('/stopCron').get(verifyToken, stopCronJob);
+router.route('/csvExport').get(verifyToken, getTransactionCsv);
 
 // Update
 router.route('/:id').put(verifyToken, validate(updateSchema), update);

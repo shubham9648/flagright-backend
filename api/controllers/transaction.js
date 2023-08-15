@@ -3,6 +3,10 @@ const service = require('../services/transaction');
 const { search } = require("../queries/transaction");
 const { ObjectId } = require("mongodb");
 const cron = require("node-cron");
+const constants = require("../helpers/constant");
+const cvsGenerator = require("../helpers/csvGenertor");
+const moment = require("moment");
+const fs = require("fs")
 
 exports.create = async (req, res, next) => {
     try {
@@ -216,3 +220,55 @@ exports.stopCronJob = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.getTransactionCsv = async (req, res, next) => {
+    try {
+        // console.log("sdg")
+        let filter = { active: true };
+        let pagination = { skip: 0, limit: 1500 };
+
+        const query = search(filter, pagination, { createdAt: -1 });
+
+        const data = await service.search(query);
+
+        const transaction = data.data;
+        let headerArr = constants.transactionExport;
+
+        const jsonArr = [];
+
+        transaction ? transaction.map((obj) => {
+            jsonArr.push({
+                amount: obj.amount || '',
+                srNo: obj.srNo || '',
+                transId: obj.ID || '',
+                originName: obj?.originUser?.fullName || '',
+                destinationName: obj?.destinationUser?.fullName || '',
+                originEmail: obj?.originUser?.email || '',
+                destinationEmail: obj?.destinationUser?.email || '',
+                description: obj.description || '',
+                type: obj.type || '',
+                status: obj.status || '',
+                originCurrency: obj.originAmountDetails.currency.name || '',
+                destinationCurrency: obj.destinationAmountDetails.currency.name || '',
+                productType: obj.productType || '',
+                createdAt: moment(obj.createdAt).format("DD/MM/YYYY") || ''
+            })
+        }) : null;
+        console.log(jsonArr);
+        let filePath = new Date().getTime() + ".csv";
+        const transactionCsvExport = await cvsGenerator.convertToCsv(headerArr, jsonArr, filePath);
+        console.log(__dirname); // Print the current directory
+        res.download("./uploads/" + transactionCsvExport, "./uploads/" + transactionCsvExport, () => {
+            fs.unlink("./uploads/" + transactionCsvExport, (err => {
+                if (err) console.log(err);
+                else {
+                  console.log("\nDeleted file:", "./uploads/" + transactionCsvExport);                }
+              }));
+        })
+        // responseHandler(process.env.HOST_URL + "/uploads/" + transactionCsvExport, res);
+
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+}

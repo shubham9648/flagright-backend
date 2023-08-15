@@ -3,8 +3,7 @@ const mongoConfig = require("../config/mongo");
 
 module.exports.connect = () => {
   return new Promise((resolve, reject) => {
-    let mongoUrl = process.env.NODE_ENV == "production" ? mongoConfig.mongoUrlProd : mongoConfig.mongoUrl;
-    console.log(mongoUrl);
+    let mongoUrl = process.env.NODE_ENV == "production" ? mongoConfig.mongoUrl : mongoConfig.mongoUrl;
     mongoose
       .connect(mongoUrl, mongoConfig.mongoOptions.options)
       .then((connection) => {

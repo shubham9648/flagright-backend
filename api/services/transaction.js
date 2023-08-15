@@ -32,3 +32,5 @@ exports.delete = async (id) => {
 exports.aggregate = async (query) => await dal.aggregate(model, query);
 
 exports.findUser = async () => await dal.find(userModel, {}, {skip: 0, limit: 30}, { createdAt: -1}, {fullName: 1});
+
+exports.find = async (filter, pagination) => await dal.find(model, filter, pagination, { createdAt: -1}, {});
