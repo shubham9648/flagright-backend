@@ -255,13 +255,14 @@ exports.getTransactionCsv = async (req, res, next) => {
                 createdAt: moment(obj.createdAt).format("DD/MM/YYYY") || ''
             })
         }) : null;
-        
+
         let filePath = new Date().getTime() + ".csv";
 
         const transactionCsvExport = await cvsGenerator.convertToCsv(headerArr, jsonArr, filePath);
 
         const absolutePath = path.resolve(__dirname, '../..'); 
 
+        console.log("absolutePath is ", absolutePath);
         res.download(absolutePath + "/uploads/" + transactionCsvExport, absolutePath + "./uploads/" + transactionCsvExport, () => {
             fs.unlink("./uploads/" + transactionCsvExport, (err => {
                 if (err) console.log(err);
