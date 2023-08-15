@@ -1,0 +1,38 @@
+ Amount,Serial No.,ID,Origin User,Destination User,Origin Email,Origin Email,Description,Type,Status,Origin Currency,Destination Currency,Product Type,Creation Date
+2,37,TRAN-0000037,Kishan Singh,Aman,kishan@flagright.com,aman@flagright.com,some random,REFUND,received,Euro,Dollar,some productType,15/08/2023
+71,36,TRAN-0000036,Kishan Singh,Aman,kishan@flagright.com,aman@flagright.com,some random,OTHER,received,Euro,Dollar,some productType,15/08/2023
+84,35,TRAN-0000035,Kishan Singh,Aman,kishan@flagright.com,aman@flagright.com,some random,EXTERNAL_PAYMENT,received,Euro,Dollar,some productType,14/08/2023
+17,34,TRAN-0000034,Aman,Madhu,aman@flagright.com,madhu@flagright.com,some random,TRANSFER,received,Euro,Dollar,some productType,14/08/2023
+60,33,TRAN-0000033,Ravi Mani Tripathi,Kishan Singh,ravi@flagright.com,kishan@flagright.com,some random,REFUND,received,Euro,Dollar,some productType,14/08/2023
+56,32,TRAN-0000032,Shubham Tiwari,,shubham@flagright.com,,some random,REFUND,received,Euro,Dollar,some productType,14/08/2023
+94,31,TRAN-0000031,Rajan Singh,Aryan Mishra,rajan@flagright.com,aryan@flagright.com,some random,DEPOSIT,received,Euro,Dollar,some productType,14/08/2023
+16,30,TRAN-0000030,Madhu,Shubham Tiwari,madhu@flagright.com,shubham@flagright.com,some random,EXTERNAL_PAYMENT,received,Euro,Dollar,some productType,14/08/2023
+79,29,TRAN-0000029,Aryan Mishra,Ravi Mani Tripathi,aryan@flagright.com,ravi@flagright.com,some random,WITHDRAWAL,received,Euro,Dollar,some productType,14/08/2023
+34,28,TRAN-0000028,Aman,Madhu,aman@flagright.com,madhu@flagright.com,some random,DEPOSIT,received,Euro,Dollar,some productType,14/08/2023
+82,27,TRAN-0000027,Aryan Mishra,Ravi Mani Tripathi,aryan@flagright.com,ravi@flagright.com,some random,DEPOSIT,received,Euro,Dollar,some productType,14/08/2023
+49,26,TRAN-0000026,Aditi Srivastava,Rajan Singh,aditi@flagright.com,rajan@flagright.com,some random,DEPOSIT,received,Euro,Dollar,some productType,14/08/2023
+76,25,TRAN-0000025,Ravi Mani Tripathi,Kishan Singh,ravi@flagright.com,kishan@flagright.com,some random,TRANSFER,received,Euro,Dollar,some productType,14/08/2023
+7,24,TRAN-0000024,Rajan Singh,Aryan Mishra,rajan@flagright.com,aryan@flagright.com,some random,TRANSFER,received,Euro,Dollar,some productType,14/08/2023
+74,23,TRAN-0000023,Rajan Singh,Aryan Mishra,rajan@flagright.com,aryan@flagright.com,some random,DEPOSIT,received,Euro,Dollar,some productType,14/08/2023
+1,22,TRAN-0000022,Ravi Mani Tripathi,Kishan Singh,ravi@flagright.com,kishan@flagright.com,some random,WITHDRAWAL,received,Euro,Dollar,some productType,14/08/2023
+64,21,TRAN-0000021,Shubham Tiwari,,shubham@flagright.com,,some random,EXTERNAL_PAYMENT,received,Euro,Dollar,some productType,14/08/2023
+74,20,TRAN-0000020,Ravi Mani Tripathi,Kishan Singh,ravi@flagright.com,kishan@flagright.com,some random,TRANSFER,received,Euro,Dollar,some productType,14/08/2023
+95,19,TRAN-0000019,Aryan Mishra,Ravi Mani Tripathi,aryan@flagright.com,ravi@flagright.com,some random,WITHDRAWAL,received,Euro,Dollar,some productType,14/08/2023
+13,18,TRAN-0000018,Madhu,Shubham Tiwari,madhu@flagright.com,shubham@flagright.com,some random,EXTERNAL_PAYMENT,received,Euro,Dollar,some productType,14/08/2023
+37,17,TRAN-0000017,Kishan Singh,Aman,kishan@flagright.com,aman@flagright.com,some random,TRANSFER,received,Euro,Dollar,some productType,14/08/2023
+16,16,TRAN-0000016,Rajan Singh,Aryan Mishra,rajan@flagright.com,aryan@flagright.com,some random,REFUND,received,Euro,Dollar,some productType,14/08/2023
+12,15,TRAN-0000015,Kishan Singh,Aman,kishan@flagright.com,aman@flagright.com,some random,WITHDRAWAL,received,Euro,Dollar,some productType,14/08/2023
+12,14,TRAN-0000014,Kishan Singh,Aman,kishan@flagright.com,aman@flagright.com,some random,EXTERNAL_PAYMENT,received,Euro,Dollar,some productType,14/08/2023
+60,13,TRAN-0000013,Ravi Mani Tripathi,Kishan Singh,ravi@flagright.com,kishan@flagright.com,some random,OTHER,received,Euro,Dollar,some productType,14/08/2023
+9,12,TRAN-0000012,Rajan Singh,Aryan Mishra,rajan@flagright.com,aryan@flagright.com,some random,TRANSFER,received,Euro,Dollar,some productType,14/08/2023
+44,11,TRAN-0000011,Madhu,Shubham Tiwari,madhu@flagright.com,shubham@flagright.com,some random,WITHDRAWAL,received,Euro,Dollar,some productType,14/08/2023
+92,10,TRAN-0000010,Kishan Singh,Aman,kishan@flagright.com,aman@flagright.com,some random,EXTERNAL_PAYMENT,received,Euro,Dollar,some productType,14/08/2023
+71,9,TRAN-0000009,Aryan Mishra,Ravi Mani Tripathi,aryan@flagright.com,ravi@flagright.com,some random,TRANSFER,received,Euro,Dollar,some productType,14/08/2023
+60,8,TRAN-0000008,Madhu,Shubham Tiwari,madhu@flagright.com,shubham@flagright.com,some random,WITHDRAWAL,received,Euro,Dollar,some productType,14/08/2023
+19,7,TRAN-0000007,Shubham Tiwari,,shubham@flagright.com,,some random,OTHER,received,Euro,Dollar,some productType,14/08/2023
+84,6,TRAN-0000006,Aryan Mishra,Ravi Mani Tripathi,aryan@flagright.com,ravi@flagright.com,some random,DEPOSIT,received,Euro,Dollar,some productType,14/08/2023
+86,5,TRAN-0000005,Aman,Madhu,aman@flagright.com,madhu@flagright.com,some random,TRANSFER,received,Euro,Dollar,some productType,14/08/2023
+90,4,TRAN-0000004,Aditi Srivastava,Rajan Singh,aditi@flagright.com,rajan@flagright.com,some random,REFUND,received,Euro,Dollar,some productType,14/08/2023
+12,3,TRAN-0000003,Rajan Singh,Aryan Mishra,rajan@flagright.com,aryan@flagright.com,some random,WITHDRAWAL,received,Euro,Dollar,some productType,14/08/2023
+57,2,TRAN-0000002,Ravi Mani Tripathi,Kishan Singh,ravi@flagright.com,kishan@flagright.com,some random,OTHER,received,Euro,Dollar,some productType,14/08/2023
+23,1,TRAN-0000001,Shubham Tiwari,,shubham@flagright.com,,some random,OTHER,received,Euro,Dollar,some productType,14/08/2023
