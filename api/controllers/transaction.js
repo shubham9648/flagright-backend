@@ -263,7 +263,7 @@ exports.getTransactionCsv = async (req, res, next) => {
         const absolutePath = path.resolve(__dirname, '../..'); 
 
         console.log("absolutePath is ", absolutePath);
-        res.download(absolutePath + "/uploads/" + transactionCsvExport, absolutePath + "./uploads/" + transactionCsvExport, () => {
+        res.download(absolutePath + "/uploads/" + transactionCsvExport, absolutePath + "/uploads/" + transactionCsvExport, () => {
             fs.unlink("./uploads/" + transactionCsvExport, (err => {
                 if (err) console.log(err);
                 else {

@@ -1,10 +1,13 @@
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const path = require("path")
 
 module.exports.convertToCsv = async (headerArr, jsonArr, file) => {
     return new Promise((resolve, reject) => {
         try {
+            const absolutePath = path.resolve(__dirname, '../..'); 
+            console.log("absolutePath 1 is ", absolutePath);
             const csvWriter = createCsvWriter({
-                path: `./uploads/${file}`,
+                path: `${absolutePath}/uploads/${file}`,
                 header: headerArr
             });
             csvWriter
