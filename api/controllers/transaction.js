@@ -7,6 +7,7 @@ const constants = require("../helpers/constant");
 const cvsGenerator = require("../helpers/csvGenertor");
 const moment = require("moment");
 const fs = require("fs")
+const path = require("path")
 
 exports.create = async (req, res, next) => {
     try {
@@ -254,11 +255,14 @@ exports.getTransactionCsv = async (req, res, next) => {
                 createdAt: moment(obj.createdAt).format("DD/MM/YYYY") || ''
             })
         }) : null;
-        console.log(jsonArr);
+        
         let filePath = new Date().getTime() + ".csv";
+
         const transactionCsvExport = await cvsGenerator.convertToCsv(headerArr, jsonArr, filePath);
-        console.log(__dirname); // Print the current directory
-        res.download("./uploads/" + transactionCsvExport, "./uploads/" + transactionCsvExport, () => {
+
+        const absolutePath = path.resolve(__dirname, '../..'); 
+
+        res.download(absolutePath + "/uploads/" + transactionCsvExport, absolutePath + "./uploads/" + transactionCsvExport, () => {
             fs.unlink("./uploads/" + transactionCsvExport, (err => {
                 if (err) console.log(err);
                 else {
