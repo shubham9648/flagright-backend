@@ -199,7 +199,7 @@ exports.startCronJob = async (req, res, next) => {
 
 exports.stopCronJob = async (req, res, next) => {
     try {
-
+        dvf
         if (transactionCronJob) {
             transactionCronJob.stop();
             responseHandler(null, res, 'Cron job stopped.');
