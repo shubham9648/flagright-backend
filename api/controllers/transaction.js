@@ -82,6 +82,24 @@ exports.getList = async (req, res, next) => {
     }
 };
 
+exports.getSingleOnId = async (req, res, next) => {
+    try {
+
+        const transactionId = req.params.id;
+
+        if(!transactionId) {
+            return responseHandler(null, res, "Please pass transaction ID", 400);
+        }
+
+        const response = await service.findById(transactionId);
+
+        responseHandler(response, res);
+    } catch (err) {
+        console.log("error is ", err);
+        next(err);
+    }
+}
+
 exports.update = async (req, res, next) => {
     try {
         const value = req.value;

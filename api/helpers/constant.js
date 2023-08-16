@@ -1,5 +1,5 @@
 exports.transactionExport = [
-    {id: "amount", title: " Amount"},
+    {id: "amount", title: "Amount"},
     {id: "srNo", title: "Serial No."},
     {id: "transId", title: "ID"},
     {id: "originName", title: "Origin User"},

@@ -7,6 +7,7 @@ const validate = require('../../middleware/validator'); // Validator
 const {
     create,
     getList,
+    getSingleOnId,
     startCronJob,
     stopCronJob,
     analytics,
@@ -29,7 +30,7 @@ router.route('/analytics').get(verifyToken, analytics);
 router.route('/startCron').get(verifyToken, startCronJob);
 router.route('/stopCron').get(verifyToken, stopCronJob);
 router.route('/csvExport').get(verifyToken, getTransactionCsv);
-
+router.route('/singleFetch/:id').get(verifyToken, getSingleOnId);
 // Update
 router.route('/:id').put(verifyToken, validate(updateSchema), update);
 

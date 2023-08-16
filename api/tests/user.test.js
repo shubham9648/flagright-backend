@@ -1,4 +1,3 @@
-const userController = require('../controllers/user');
 const { expect } = require('chai');
 const request = require('supertest');
 const { users, transaction } = require("./seed/seed")
