@@ -152,7 +152,8 @@ var transactionCronJob = null;
 
 exports.startCronJob = async (req, res, next) => {
     try {
-
+        dvf
+        // for starting cron job...
          transactionCronJob = cron.schedule('*/5 * * * * *', async () => {
             const userIds = await service.findUser();
             const typeArr = ["DEPOSIT", "TRANSFER", "EXTERNAL_PAYMENT", "WITHDRAWAL", "REFUND", "OTHER"]
@@ -199,7 +200,7 @@ exports.startCronJob = async (req, res, next) => {
 
 exports.stopCronJob = async (req, res, next) => {
     try {
-        dvf
+        // for stopping cron job
         if (transactionCronJob) {
             transactionCronJob.stop();
             responseHandler(null, res, 'Cron job stopped.');
@@ -215,7 +216,6 @@ exports.stopCronJob = async (req, res, next) => {
 
 exports.getTransactionCsv = async (req, res, next) => {
     try {
-        // console.log("sdg")
         let filter = { active: true };
         let pagination = { skip: 0, limit: 1500 };
 
@@ -262,7 +262,6 @@ exports.getTransactionCsv = async (req, res, next) => {
                 }
             }));
         })
-        // responseHandler(process.env.HOST_URL + "/uploads/" + transactionCsvExport, res);
 
     } catch (err) {
         console.log(err);

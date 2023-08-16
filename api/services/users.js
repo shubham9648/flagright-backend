@@ -14,16 +14,20 @@ let getToken = async (body) => {
 };
 
 const loginUser = async ({ email, password }) => {
+
   const projection = {
     email: 1,
     password: 1,
     fullName: 1,
   };
+
   var token;
   const user = await dal.findOne(model, { email }, projection);
+
   if (!user) {
     return { userData: null, token };
   }
+
   const userData = {
     userId: user._id,
     email: user.email,
@@ -38,7 +42,6 @@ const loginUser = async ({ email, password }) => {
 
   token = await getToken(userData);
 
-  //   console.log({ userData, token });
   return { userData, token };
 };
 

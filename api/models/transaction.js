@@ -16,17 +16,20 @@ const amountDetailSchema = Schema({
 const transactionSchema = Schema({
     ID: {
         type: String,
-        require: "ID is required"
+        require: "ID is required",
+        unique: true
     },
     srNo: {
-        type: Number
+        type: Number,
+        index: true
     },
     description: {
         type: String
     },
     amount: {
         type: Number,
-        require: "Amount is required"
+        require: "Amount is required",
+        index: true
     },
     type: {
         type: String,
