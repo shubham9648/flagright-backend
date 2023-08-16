@@ -153,8 +153,7 @@ var transactionCronJob = null;
 exports.startCronJob = async (req, res, next) => {
     try {
         // for starting cron job...
-         transactionCronJob = cron.schedule('*/5 * * * * *', async () => {
-            dvf
+         transactionCronJob = cron.schedule('*/1 * * * * *', async () => {
             const userIds = await service.findUser();
             const typeArr = ["DEPOSIT", "TRANSFER", "EXTERNAL_PAYMENT", "WITHDRAWAL", "REFUND", "OTHER"]
 
