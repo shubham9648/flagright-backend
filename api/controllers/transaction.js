@@ -1,6 +1,6 @@
 const { responseHandler } = require('../../middleware/response-handler');
 const service = require('../services/transaction');
-const { search } = require("../queries/transaction");
+const { search, analytics } = require("../queries/transaction");
 const { ObjectId } = require("mongodb");
 const cron = require("node-cron");
 const constants = require("../helpers/constant");
@@ -131,23 +131,16 @@ exports.analytics = async (req, res, next) => {
             filter['createdAt'] = { $gte: new Date(reqQuery.from), $lte: new Date(reqQuery.to) };
         };
 
-        const query = [
-            {
-                $match: filter
-            },
-            {
-                '$group': {
-                    '_id': null,
-                    'totalAmount': {
-                        '$sum': '$amount'
-                    }
-                }
-            }
-        ]
+        const queries = analytics(filter);
 
-        const response = await service.aggregate(query);
+        const response = await service.aggregate(queries);
 
-        return responseHandler(response, res);
+        const data = {
+            totalAmount: response[0].totalAmount ? response[0].totalAmount[0].totalAmount : 0,
+            totalCount: response[0].totalCount ? response[0].totalCount[0].count : 0
+        }
+
+        return responseHandler(data, res);
 
     } catch (err) {
         console.log("error is ", err);
@@ -160,9 +153,7 @@ var transactionCronJob = null;
 exports.startCronJob = async (req, res, next) => {
     try {
 
-
-        transactionCronJob = cron.schedule('*/5 * * * * *', async () => {
-
+         transactionCronJob = cron.schedule('*/5 * * * * *', async () => {
             const userIds = await service.findUser();
             const typeArr = ["DEPOSIT", "TRANSFER", "EXTERNAL_PAYMENT", "WITHDRAWAL", "REFUND", "OTHER"]
 
@@ -171,7 +162,7 @@ exports.startCronJob = async (req, res, next) => {
             const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
             console.log(randomNumber);
-            let amount = Math.floor(Math.random() * 100);
+            let amount = Math.floor(Math.random() * 1000);
             const transAmount = Math.floor(Math.random()) * 12
 
             const minType = 0;
@@ -182,8 +173,8 @@ exports.startCronJob = async (req, res, next) => {
                 description: "some random",
                 amount: amount,
                 type: typeArr[randomNumberType],
-                originUserId: userIds[randomNumber],
-                destinationUserId: userIds[randomNumber + 1],
+                originUserId: userIds[randomNumber] ? userIds[randomNumber] : userIds[randomNumber - 1],
+                destinationUserId: userIds[randomNumber + 1] ? userIds[randomNumber + 1] : userIds[randomNumber - 1],
                 originAmountDetails: {
                     transactionAmount: transAmount,
                     currency: "64d87a4646cf035437f78a30"
@@ -260,15 +251,16 @@ exports.getTransactionCsv = async (req, res, next) => {
 
         const transactionCsvExport = await cvsGenerator.convertToCsv(headerArr, jsonArr, filePath);
 
-        const absolutePath = path.resolve(__dirname, '../..'); 
+        const absolutePath = path.resolve(__dirname, '../..');
 
         console.log("absolutePath is ", absolutePath);
         res.download(absolutePath + "/uploads/" + transactionCsvExport, absolutePath + "/uploads/" + transactionCsvExport, () => {
             fs.unlink("./uploads/" + transactionCsvExport, (err => {
                 if (err) console.log(err);
                 else {
-                  console.log("\nDeleted file:", "./uploads/" + transactionCsvExport);                }
-              }));
+                    console.log("\nDeleted file:", "./uploads/" + transactionCsvExport);
+                }
+            }));
         })
         // responseHandler(process.env.HOST_URL + "/uploads/" + transactionCsvExport, res);
 

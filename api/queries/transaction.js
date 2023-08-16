@@ -139,3 +139,35 @@ exports.search = (filter, pagination, sort) => {
         }
     }];
 }
+
+exports.analytics = (filter) => {
+    const amountQuery = [
+        {
+            $match: filter
+        },
+        {
+            '$group': {
+                '_id': null,
+                'totalAmount': {
+                    '$sum': '$amount'
+                }
+            }
+        }
+    ]
+
+    const transactionCountQuery = [
+        {
+            $match: filter
+        },
+        {
+            $count: 'count'
+        }];
+    
+
+        return [{
+            $facet: {
+                totalAmount: amountQuery,
+                totalCount: transactionCountQuery
+            }
+        }];
+}

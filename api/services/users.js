@@ -7,14 +7,13 @@ const { ObjectId } = require("mongodb")
 
 
 
-
 let getToken = async (body) => {
   return await jwt.sign(body, process.env.JWT_SECRET, {
     expiresIn: "365d",
   });
 };
 
-exports.loginUser = async ({ email, password }) => {
+const loginUser = async ({ email, password }) => {
   const projection = {
     email: 1,
     password: 1,
@@ -25,7 +24,6 @@ exports.loginUser = async ({ email, password }) => {
   if (!user) {
     return { userData: null, token };
   }
-  console.log("user is ", user);
   const userData = {
     userId: user._id,
     email: user.email,
@@ -45,7 +43,7 @@ exports.loginUser = async ({ email, password }) => {
 };
 
 
-exports.registerUser = async (body) => {
+const registerUser = async (body) => {
   body["password"] = await bcryptjs.hash(body.password, 10);
 
   const response = await dal.create(model, body);
@@ -61,7 +59,7 @@ exports.registerUser = async (body) => {
 };
 
 
-exports.search = async (query) => {
+const search = async (query) => {
   const data = await dal.aggregate(model, query);
 
   return {
@@ -71,4 +69,12 @@ exports.search = async (query) => {
 };
 
 
-exports.getUser = async (id) => await dal.findOne(model, { _id: new ObjectId(id)});
+const getUser = async (id) => await dal.findOne(model, { _id: new ObjectId(id)});
+
+module.exports = {
+  loginUser,
+  registerUser,
+  search,
+  getToken,
+  getUser
+}
